@@ -1,4 +1,7 @@
-require("dotenv").config();
+var dotenv = require("dotenv").config();
+var request = require("request");
+var fs = request("fs");
+
 
 var keys = require('./keys.js');
 
@@ -14,13 +17,14 @@ var input3 = process.argv[4];
 
 
 
+
 // Just following directions
 
 switch (input1) {
     case 'my-tweets':
         client.get('statuses/user_timeline', function (error, tweets, response) {
             if (error) throw error;
-            
+
             for (i = 0; i < tweets.length; i++) {
                 console.log(tweets[i].text);
             }
@@ -31,14 +35,43 @@ switch (input1) {
         spotify.search({ type: 'track', query: input2 }, function (err, data) {
             if (err) throw err
 
-            for (i=0; i < data.tracks.items.length; i++){
-                if (data.tracks.items[i].name === input2){
+            for (i = 0; i < data.tracks.items.length; i++) {
+                if (data.tracks.items[i].name === input2) {
                     console.log(data.tracks.items[i].name);
                 }
             }
-            
         });
+
         break;
+    case 'movie-this':
+        var queryURL = "https://www.omdbapi.com/?t=" + input2 + "&y=&imdbRating=&tomatoRating=&country=&language=&plot=short&actors=&apikey=trilogy";
+
+        request(queryURL, function (error, response, body) {
+            if (error) throw error;
+
+            console.log(`
+                Title: ${JSON.parse(body).Title} 
+                Year: ${JSON.parse(body).Year}
+                IMDB Rating: ${JSON.parse(body).imdbRating}
+                Rotten Tomatoes Rating: ${JSON.parse(body).Ratings[1].Value}
+                Country: ${JSON.parse(body).Country}
+                Language: ${JSON.parse(body).Language}
+                Plot: ${JSON.parse(body).Plot}
+                Actors: ${JSON.parse(body).Actors}
+                `);
+        });
+
+        break;
+
+    case 'do-what-it-says':
+        if (err) throw err;
+
+        fs.readFileSync('./random.txt', function(){
+            // 
+        });
+
+    break;
+
     default:
         console.log('not a command bro');
         break;
