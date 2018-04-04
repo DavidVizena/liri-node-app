@@ -1,6 +1,7 @@
 var dotenv = require("dotenv").config();
 var request = require("request");
-// var fs = request("fs");
+var fs = require('fs');
+// var filename = "./random.txt";
 
 
 var keys = require('./keys.js');
@@ -37,14 +38,12 @@ switch (input1) {
 
             // console.log(JSON.parse(JSON.stringify(data.tracks.items))[0]);
 
-            // Artist Name
-            console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name);
-            // Track Name
-            console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].name);
-            // Preview Link
-            console.log(JSON.parse(JSON.stringify(data)).tracks.items[0].preview_url);
-            // Album Name
-            console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].album.name);
+            console.log(`
+            Artist: ${JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name}
+            Track: ${JSON.parse(JSON.stringify(data.tracks.items))[0].name}
+            Preview: ${JSON.parse(JSON.stringify(data)).tracks.items[0].preview_url}
+            Album: ${JSON.parse(JSON.stringify(data.tracks.items))[0].album.name}
+            `)
 
         });
 
@@ -70,11 +69,12 @@ switch (input1) {
         break;
 
     case 'do-what-it-says':
-        if (err) throw err;
 
-        // fs.readFileSync('./random.txt', function(){
+        fs.readFile('./random.txt', "utf8", function read(err, data) {
+            if (err) throw err;
 
-        // });
+            console.log(data);
+        });
 
         break;
 
