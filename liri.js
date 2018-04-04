@@ -67,14 +67,24 @@ switch (input1) {
 
     case 'do-what-it-says':
 
-        fs.readFile('./random.txt', "utf8", function read(err, data) {
+        fs.readFile('./random.txt', "utf8", function(err, data) {
             if (err) throw err;
 
             broken = data.split(',');
             first = broken[0];
             second = broken[1];
 
-            console.log(`node liri ${first}  ${second}`);
+            spotify.search({ type: 'track', query: second, limit: 1 }, function (err, data) {
+                if (err) throw err
+    
+                console.log(`
+                Artist: ${JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name}
+                Track: ${JSON.parse(JSON.stringify(data.tracks.items))[0].name}
+                Preview: ${JSON.parse(JSON.stringify(data)).tracks.items[0].preview_url}
+                Album: ${JSON.parse(JSON.stringify(data.tracks.items))[0].album.name}
+                `)
+    
+            });
 
         });
 
