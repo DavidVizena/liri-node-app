@@ -32,15 +32,20 @@ switch (input1) {
 
         break;
     case 'spotify-this-song':
-        spotify.search({ type: 'track', query: input2 }, function (err, data) {
+        spotify.search({ type: 'track', query: input2, limit: 1 }, function (err, data) {
             if (err) throw err
 
-                // if (data.tracks.items[i].name === input2) {
-                    // }
-                    // GETS ARTIST
-                    console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name);
-                    // GETS SONG NAME
-                    console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].name);
+            // console.log(JSON.parse(JSON.stringify(data.tracks.items))[0]);
+
+            // Artist Name
+            console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name);
+            // Track Name
+            console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].name);
+            // Preview Link
+            console.log(JSON.parse(JSON.stringify(data)).tracks.items[0].preview_url);
+            // Album Name
+            console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].album.name);
+
         });
 
         break;
@@ -68,10 +73,10 @@ switch (input1) {
         if (err) throw err;
 
         // fs.readFileSync('./random.txt', function(){
-            
+
         // });
 
-    break;
+        break;
 
     default:
         console.log('not a command bruhhh');
