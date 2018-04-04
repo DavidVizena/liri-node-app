@@ -35,13 +35,12 @@ switch (input1) {
         spotify.search({ type: 'track', query: input2 }, function (err, data) {
             if (err) throw err
 
-            for (i = 0; i < data.tracks.items.length; i++) {
-                if (data.tracks.items[i].name === input2) {
-                    console.log(data.tracks.items[i].name);
-                }
-                // console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name);
-
-            }
+                // if (data.tracks.items[i].name === input2) {
+                    // }
+                    // GETS ARTIST
+                    console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name);
+                    // GETS SONG NAME
+                    console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].name);
         });
 
         break;
@@ -69,7 +68,7 @@ switch (input1) {
         if (err) throw err;
 
         // fs.readFileSync('./random.txt', function(){
-            // 
+            
         // });
 
     break;
