@@ -1,7 +1,6 @@
 var dotenv = require("dotenv").config();
 var request = require("request");
 var fs = require('fs');
-// var filename = "./random.txt";
 
 
 var keys = require('./keys.js');
@@ -35,8 +34,6 @@ switch (input1) {
     case 'spotify-this-song':
         spotify.search({ type: 'track', query: input2, limit: 1 }, function (err, data) {
             if (err) throw err
-
-            // console.log(JSON.parse(JSON.stringify(data.tracks.items))[0]);
 
             console.log(`
             Artist: ${JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name}
@@ -73,7 +70,12 @@ switch (input1) {
         fs.readFile('./random.txt', "utf8", function read(err, data) {
             if (err) throw err;
 
-            console.log(data);
+            broken = data.split(',');
+            first = broken[0];
+            second = broken[1];
+
+            console.log(`node liri ${first}  ${second}`);
+
         });
 
         break;
