@@ -31,20 +31,17 @@ switch (input1) {
         })
 
         break;
-        case 'spotify-this-song':
+    case 'spotify-this-song':
         spotify.search({ type: 'track', query: input2 }, function (err, data) {
             if (err) throw err
 
-            //console.log(data.tracks);
-            //console.log(data.tracks.items.length);
-            console.log(data.tracks.items)
-            for (i=0; i < data.tracks.items.length; i++){
-                //if (data.tracks.items[i].name === input2){
+            for (i = 0; i < data.tracks.items.length; i++) {
+                if (data.tracks.items[i].name === input2) {
                     console.log(data.tracks.items[i].name);
-                    console.log(data.tracks.items[i].album.external_urls.spotify);
-                    
-                //}
-            }   
+                }
+                // console.log(JSON.parse(JSON.stringify(data.tracks.items))[0].album.artists[0].name);
+
+            }
         });
 
         break;
