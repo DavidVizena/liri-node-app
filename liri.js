@@ -1,6 +1,6 @@
 var dotenv = require("dotenv").config();
 var request = require("request");
-var fs = request("fs");
+// var fs = request("fs");
 
 
 var keys = require('./keys.js');
@@ -31,15 +31,20 @@ switch (input1) {
         })
 
         break;
-    case 'spotify-this-song':
+        case 'spotify-this-song':
         spotify.search({ type: 'track', query: input2 }, function (err, data) {
             if (err) throw err
 
-            for (i = 0; i < data.tracks.items.length; i++) {
-                if (data.tracks.items[i].name === input2) {
+            //console.log(data.tracks);
+            //console.log(data.tracks.items.length);
+            console.log(data.tracks.items)
+            for (i=0; i < data.tracks.items.length; i++){
+                //if (data.tracks.items[i].name === input2){
                     console.log(data.tracks.items[i].name);
-                }
-            }
+                    console.log(data.tracks.items[i].album.external_urls.spotify);
+                    
+                //}
+            }   
         });
 
         break;
@@ -66,13 +71,13 @@ switch (input1) {
     case 'do-what-it-says':
         if (err) throw err;
 
-        fs.readFileSync('./random.txt', function(){
+        // fs.readFileSync('./random.txt', function(){
             // 
-        });
+        // });
 
     break;
 
     default:
-        console.log('not a command bro');
+        console.log('not a command bruhhh');
         break;
 }
